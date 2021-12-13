@@ -23,9 +23,9 @@ EXPOSE 8080
 WORKDIR /application
 
 RUN apt-get update && apt-get install -y libpq-dev libicu-dev \
-    && docker-php-ext-install intl pdo_pgsql pcntl opcache redis \
-    && pecl install apcu \
-    && docker-php-ext-enable apcu
+    && docker-php-ext-install intl pdo_pgsql pcntl opcache \
+    && pecl install apcu && pecl install redis\
+    && docker-php-ext-enable apcu redis
 
 COPY docker/php-pm/php.ini /usr/local/etc/php/conf.d/99-overrides.ini
 

@@ -5,9 +5,9 @@ RUN mkdir /ppm && cd /ppm && composer require --ignore-platform-reqs php-pm/http
 FROM php:8.0-cli
 
 RUN apt-get update && apt-get install -y libpq-dev libicu-dev \
-    && docker-php-ext-install intl pdo_pgsql pcntl opcache redis \
-    && pecl install xdebug && pecl install apcu \
-    && docker-php-ext-enable xdebug apcu
+    && docker-php-ext-install intl pdo_pgsql pcntl opcache \
+    && pecl install xdebug && pecl install apcu && pecl install redis \
+    && docker-php-ext-enable xdebug apcu redis
 
 
 COPY php.ini.dev /usr/local/etc/php/conf.d/99-overrides.ini
