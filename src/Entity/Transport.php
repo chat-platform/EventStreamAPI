@@ -2,6 +2,7 @@
 
 namespace EventStreamApi\Entity;
 
+use ApiPlatform\Core\Annotation\ApiProperty;
 use ApiPlatform\Core\Annotation\ApiResource;
 use EventStreamApi\Repository\TransportRepository;
 use Doctrine\ORM\Mapping as ORM;
@@ -23,6 +24,7 @@ class Transport
      * @ORM\Id
      * @ORM\Column(type="string")
      * @Groups({"transport:read", "event:read", "subscription:read", "subscription:write"})
+     * @ApiProperty(identifier=true)
      */
     protected string $name;
 
