@@ -5,7 +5,7 @@ RUN mkdir /ppm && cd /ppm && composer require --ignore-platform-reqs php-pm/http
 FROM php:8.0-cli
 
 RUN apt-get update && apt-get install -y libpq-dev libicu-dev \
-    && docker-php-ext-install intl pdo_pgsql pcntl opcache \
+    && docker-php-ext-install intl pdo_pgsql pcntl opcache redis \
     && pecl install xdebug && pecl install apcu \
     && docker-php-ext-enable xdebug apcu
 

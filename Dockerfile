@@ -23,7 +23,7 @@ EXPOSE 8080
 WORKDIR /application
 
 RUN apt-get update && apt-get install -y libpq-dev libicu-dev \
-    && docker-php-ext-install intl pdo_pgsql pcntl opcache \
+    && docker-php-ext-install intl pdo_pgsql pcntl opcache redis \
     && pecl install apcu \
     && docker-php-ext-enable apcu
 
