@@ -22,7 +22,7 @@ class Transport
     /**
      * @ORM\Id
      * @ORM\Column(type="string")
-     * @Groups({"transport:read", "event:read"})
+     * @Groups({"transport:read", "event:read", "subscription:read", "subscription:write"})
      */
     private string $name;
 
