@@ -32,10 +32,16 @@ class Transport
      */
     public ?string $publicKey;
 
-    public function __construct(string $name, ?string $publicKey)
+    /**
+     * @var bool Whether or not to subscribe users to the transport when the transport creates an event on behalf of a user.
+     */
+    public bool $autoSubscribeOnEventCreate = false;
+
+    public function __construct(string $name, ?string $publicKey = null, bool $autoSubscribeOnEventCreate = false)
     {
         $this->name = $name;
         $this->publicKey = $publicKey;
+        $this->autoSubscribeOnEventCreate = $autoSubscribeOnEventCreate;
     }
 
     public function getName(): ?string

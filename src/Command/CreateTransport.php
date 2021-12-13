@@ -6,6 +6,7 @@ use EventStreamApi\Entity\Transport;
 use Symfony\Component\Console\Command\Command;
 use Symfony\Component\Console\Input\InputArgument;
 use Symfony\Component\Console\Input\InputInterface;
+use Symfony\Component\Console\Input\InputOption;
 use Symfony\Component\Console\Output\OutputInterface;
 
 class CreateTransport extends Command
@@ -23,6 +24,7 @@ class CreateTransport extends Command
             ->setHelp('Given the name of a transport and an option base64 encoded public key creates a transport for subscriptions to use.')
             ->addArgument('name', InputArgument::REQUIRED, 'The name of the transport')
             ->addArgument('public_key', InputArgument::OPTIONAL, 'The base64 encoded public key for return events.', null)
+            ->addOption('auto_subscribe', 'a', InputOption::VALUE_NONE, 'Whether or not to auto subscribe users to events in streams that the transport creates events in.')
         ;
     }
 
@@ -46,7 +48,9 @@ class CreateTransport extends Command
             return Command::FAILURE;
         }
 
-        $transport = new Transport($name, $publicKey);
+        $autoSubscribe = (bool)$input->getOption('auto_subscribe');
+
+        $transport = new Transport($name, $publicKey, $autoSubscribe);
 
         $this->dataPersister->persist($transport);
 

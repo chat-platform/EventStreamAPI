@@ -2,6 +2,7 @@
 namespace EventStreamApi\MessageHandler;
 
 use Doctrine\Persistence\ManagerRegistry;
+use EventStreamApi\Entity\Subscription;
 use EventStreamApi\Entity\User;
 use EventStreamApi\Repository\EventRepository;
 use EventStreamApi\Repository\StreamRepository;
@@ -50,30 +51,48 @@ class TransportEventHandler implements MessageHandlerInterface
             return;
         }
 
-        if (!($user = $this->userRepository->find($transportEvent->getEvent()->getUser()->getId()))
-        ) {
-            // Create user if transport says it exists and we don't know about it (eventual consistency)
-            $userManager = $this->managerRegistry->getManagerForClass(User::class);
-
-            if(!$userManager) {
-                // This shouldn't happen
-                throw new \RuntimeException("Internal server error.");
-            }
-
-            $user = new User($transportEvent->getEvent()->getUser()->getId());
-            $userManager->persist($user);
-            $userManager->flush();
-        }
-
-
         if (!($stream = $this->streamRepository->find($transportEvent->getEvent()->getStream()->getId()))) {
             // TODO: Handle events in streams that don't exist
             return;
         }
 
+        if (!($user = $this->userRepository->find($transportEvent->getEvent()->getUser()->getId()))
+        ) {
+            // Create user if transport says it exists and we don't know about it (eventual consistency)
+            $subscriptionManager = $this->managerRegistry->getManagerForClass(User::class);
+
+            if(!$subscriptionManager) {
+                // This shouldn't happen
+                throw new \RuntimeException("Internal server error.");
+            }
+
+            $user = new User($transportEvent->getEvent()->getUser()->getId());
+            $subscriptionManager->persist($user);
+            $subscriptionManager->flush();
+            $transportEvent->getEvent()->setUser($user);
+        }
+
         if (!$stream->hasUser($user)) {
             // TODO: Handle events in streams that the user doesn't belong to
             return;
+        }
+
+        // Auto subscribe user. Useful for when transport creates a user.
+        if ($transport->autoSubscribeOnEventCreate &&
+            ($streamUser = $user->getStreamUserForStream($stream)) &&
+            !$streamUser->isSubscribed($transport->getName())
+        ) {
+            $subscriptionManager = $this->managerRegistry->getManagerForClass(User::class);
+
+            if(!$subscriptionManager) {
+                // This shouldn't happen
+                throw new \RuntimeException("Internal server error.");
+            }
+
+            $subscription = new Subscription($transport, $streamUser);
+
+            $subscriptionManager->persist($subscription);
+            $subscriptionManager->flush();
         }
 
         $eventManager = $this->managerRegistry->getManagerForClass(User::class);

@@ -66,6 +66,24 @@ class Subscription
      */
     public ?string $transportConfiguration = null;
 
+    /**
+     * @param Transport $transport
+     * @param string[]|null $eventTypes
+     * @param StreamUser $streamUser
+     * @param string|null $transportConfiguration
+     */
+    public function __construct(
+        Transport $transport,
+        StreamUser $streamUser,
+        ?array $eventTypes = null,
+        ?string $transportConfiguration = null
+    ) {
+        $this->transport = $transport;
+        $this->eventTypes = $eventTypes;
+        $this->streamUser = $streamUser;
+        $this->transportConfiguration = $transportConfiguration;
+    }
+
     public function getId(): UuidInterface
     {
         return $this->id;
