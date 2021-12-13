@@ -24,9 +24,8 @@ class Transport
      * @ORM\Id
      * @ORM\Column(type="string")
      * @Groups({"transport:read", "event:read", "subscription:read", "subscription:write"})
-     * @ApiProperty(identifier=true)
      */
-    protected string $name;
+    public string $name;
 
     /**
      * Pem formatted public key that corresponds to the transport's private key it will sign return messages with.
