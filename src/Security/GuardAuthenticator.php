@@ -13,7 +13,6 @@ use Symfony\Component\Security\Http\Authenticator\Passport\Badge\UserBadge;
 use Symfony\Component\Security\Http\Authenticator\Passport\Passport;
 use Symfony\Component\Security\Http\Authenticator\Passport\SelfValidatingPassport;
 use Doctrine\Persistence\ManagerRegistry;
-use Symfony\Component\Security\Http\Authenticator\Passport\UserPassportInterface;
 
 class GuardAuthenticator extends AbstractAuthenticator
 {
