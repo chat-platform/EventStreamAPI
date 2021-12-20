@@ -90,7 +90,6 @@ class Event
     /**
      * The transport that created this event, if any.
      * @ORM\ManyToOne(targetEntity=Transport::class)
-     * @ORM\JoinColumn(name="transport_id", referencedColumnName="name")
      * @Groups({"event:read"})
      */
     protected ?Transport $transport = null;

@@ -159,7 +159,7 @@ class StreamUser
 
     public function isSubscribed(string $transportName): bool
     {
-        return (bool)array_filter($this->getSubscriptions(), fn (Subscription $subscription) => $subscription->getTransport()->getName() === $transportName);
+        return (bool)array_filter($this->getSubscriptions(), fn (Subscription $subscription) => $subscription->getTransport()->id === $transportName);
     }
 
     public function getLastSeenEvent(): ?Event

@@ -38,7 +38,6 @@ class Subscription
 
     /**
      * @ORM\ManyToOne(targetEntity=Transport::class)
-     * @ORM\JoinColumn(name="transport_id", referencedColumnName="name")
      * @Groups({"subscription:read", "subscription:write"})
      * @ApiFilter(SearchFilter::class, strategy="exact")
      * @Assert\NotBlank
