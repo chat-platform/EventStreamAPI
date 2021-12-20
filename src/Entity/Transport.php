@@ -2,7 +2,6 @@
 
 namespace EventStreamApi\Entity;
 
-use ApiPlatform\Core\Annotation\ApiProperty;
 use ApiPlatform\Core\Annotation\ApiResource;
 use EventStreamApi\Repository\TransportRepository;
 use Doctrine\ORM\Mapping as ORM;
@@ -25,7 +24,7 @@ class Transport
      * @ORM\Column(type="string")
      * @Groups({"transport:read", "event:read", "subscription:read", "subscription:write"})
      */
-    public string $name;
+    public string $id;
 
     /**
      * Pem formatted public key that corresponds to the transport's private key it will sign return messages with.
@@ -38,15 +37,10 @@ class Transport
      */
     public bool $autoSubscribeOnEventCreate = false;
 
-    public function __construct(string $name, ?string $publicKey = null, bool $autoSubscribeOnEventCreate = false)
+    public function __construct(string $id, ?string $publicKey = null, bool $autoSubscribeOnEventCreate = false)
     {
-        $this->name = $name;
+        $this->id = $id;
         $this->publicKey = $publicKey;
         $this->autoSubscribeOnEventCreate = $autoSubscribeOnEventCreate;
-    }
-
-    public function getName(): ?string
-    {
-        return $this->name;
     }
 }

@@ -81,12 +81,12 @@ final class Version20211213055619 extends AbstractMigration
         $this->addSql('COMMENT ON COLUMN subscription.id IS \'(DC2Type:uuid)\'');
         $this->addSql('COMMENT ON COLUMN subscription.stream_user_id IS \'(DC2Type:uuid)\'');
         $this->addSql('COMMENT ON COLUMN subscription.event_types IS \'(DC2Type:simple_array)\'');
-        $this->addSql('CREATE TABLE transport (name VARCHAR(255) NOT NULL, public_key TEXT DEFAULT NULL, PRIMARY KEY(name))');
+        $this->addSql('CREATE TABLE transport (id VARCHAR(255) NOT NULL, public_key TEXT DEFAULT NULL, PRIMARY KEY(id))');
         $this->addSql('CREATE TABLE "user" (id VARCHAR(255) NOT NULL, PRIMARY KEY(id))');
         $this->addSql('ALTER TABLE event ADD CONSTRAINT FK_3BAE0AA7A76ED395 FOREIGN KEY (user_id) REFERENCES "user" (id) NOT DEFERRABLE INITIALLY IMMEDIATE');
         $this->addSql('ALTER TABLE event ADD CONSTRAINT FK_3BAE0AA7D0ED463E FOREIGN KEY (stream_id) REFERENCES "stream" (id) NOT DEFERRABLE INITIALLY IMMEDIATE');
         $this->addSql('ALTER TABLE event ADD CONSTRAINT FK_3BAE0AA7B2A20893 FOREIGN KEY (event_data_id) REFERENCES event_data (id) NOT DEFERRABLE INITIALLY IMMEDIATE');
-        $this->addSql('ALTER TABLE event ADD CONSTRAINT FK_3BAE0AA79909C13F FOREIGN KEY (transport_id) REFERENCES transport (name) NOT DEFERRABLE INITIALLY IMMEDIATE');
+        $this->addSql('ALTER TABLE event ADD CONSTRAINT FK_3BAE0AA79909C13F FOREIGN KEY (transport_id) REFERENCES transport (id) NOT DEFERRABLE INITIALLY IMMEDIATE');
         $this->addSql('ALTER TABLE invite ADD CONSTRAINT FK_C7E210D7D0ED463E FOREIGN KEY (stream_id) REFERENCES "stream" (id) NOT DEFERRABLE INITIALLY IMMEDIATE');
         $this->addSql('ALTER TABLE role ADD CONSTRAINT FK_57698A6AD0ED463E FOREIGN KEY (stream_id) REFERENCES "stream" (id) NOT DEFERRABLE INITIALLY IMMEDIATE');
         $this->addSql('ALTER TABLE "stream" ADD CONSTRAINT FK_F0E9BE1C7E3C61F9 FOREIGN KEY (owner_id) REFERENCES "stream" (id) NOT DEFERRABLE INITIALLY IMMEDIATE');
@@ -99,7 +99,7 @@ final class Version20211213055619 extends AbstractMigration
         $this->addSql('ALTER TABLE stream_user ADD CONSTRAINT FK_3A84EFEAEA417747 FOREIGN KEY (invite_id) REFERENCES invite (id) NOT DEFERRABLE INITIALLY IMMEDIATE');
         $this->addSql('ALTER TABLE stream_user_role ADD CONSTRAINT FK_25A11944F1073866 FOREIGN KEY (stream_user_id) REFERENCES stream_user (id) ON DELETE CASCADE NOT DEFERRABLE INITIALLY IMMEDIATE');
         $this->addSql('ALTER TABLE stream_user_role ADD CONSTRAINT FK_25A11944D60322AC FOREIGN KEY (role_id) REFERENCES role (id) ON DELETE CASCADE NOT DEFERRABLE INITIALLY IMMEDIATE');
-        $this->addSql('ALTER TABLE subscription ADD CONSTRAINT FK_A3C664D39909C13F FOREIGN KEY (transport_id) REFERENCES transport (name) NOT DEFERRABLE INITIALLY IMMEDIATE');
+        $this->addSql('ALTER TABLE subscription ADD CONSTRAINT FK_A3C664D39909C13F FOREIGN KEY (transport_id) REFERENCES transport (id) NOT DEFERRABLE INITIALLY IMMEDIATE');
         $this->addSql('ALTER TABLE subscription ADD CONSTRAINT FK_A3C664D3F1073866 FOREIGN KEY (stream_user_id) REFERENCES stream_user (id) NOT DEFERRABLE INITIALLY IMMEDIATE');
     }
 
