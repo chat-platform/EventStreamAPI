@@ -4,6 +4,7 @@ api_platform:
     description: 'An API for publishing and subscribing to event streams.'
     show_webby: false
     path_segment_name_generator: 'EventStreamApi\PathSegmentGenerator'
+    allow_plain_identifiers: true
     mapping:
         paths: ['%kernel.project_dir%/src/Entity']
     formats:
