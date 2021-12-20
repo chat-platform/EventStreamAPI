@@ -26,10 +26,10 @@ class EventMessageHandler implements MessageHandlerInterface
                     return $carry;
                 }
 
-                if (!isset($carry[$item->transport])) {
-                    $carry[$item->transport] = [];
+                if (!isset($carry[$item->transport->id])) {
+                    $carry[$item->transport->id] = [];
                 }
-                $carry[$item->transport][] = $item;
+                $carry[$item->transport->id][] = $item;
                 return $carry;
             },
             []

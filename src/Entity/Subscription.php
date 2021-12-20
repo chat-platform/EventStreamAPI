@@ -97,14 +97,4 @@ class Subscription
     {
         $this->streamUser = $streamUser;
     }
-
-    public function getTransport(): Transport
-    {
-        return $this->transport;
-    }
-
-    public function setTransport(Transport $transport): void
-    {
-        $this->transport = $transport;
-    }
 }
