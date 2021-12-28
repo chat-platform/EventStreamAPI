@@ -27,14 +27,16 @@ use EventStreamApi\Repository\StreamUserRepository;
  *     },
  *     itemOperations={
  *         "get",
- *         "patch"={"security"="object.getUser() == user"},
+ *         "patch"={
+ *             "security"="object.getUser() == user",
+ *             "denormalization_context"={"groups"={"stream-user:update"}}
+ *         },
  *         "delete"={"security"="object.getUser() == user"}
  *     },
  *     normalizationContext={
  *         "groups"={"stream-user:read"},
  *         "skip_null_values" = false
  *     },
- *     denormalizationContext={"groups"={"stream-user:write"}}
  * )
  * @ORM\Entity(repositoryClass=StreamUserRepository::class)
  * @ORM\Table(
@@ -85,7 +87,7 @@ class StreamUser
 
     /**
      * @ORM\ManyToOne(targetEntity=Event::class)
-     * @Groups({"stream-user:read", "stream-user:write"})
+     * @Groups({"stream-user:read", "stream-user:update"})
      */
     protected ?Event $lastSeenEvent;
 
