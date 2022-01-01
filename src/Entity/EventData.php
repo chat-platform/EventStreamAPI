@@ -28,7 +28,7 @@ class EventData
     protected UuidInterface $id;
 
     /**
-     * @ORM\Column(type="blob")
+     * @ORM\Column(type="text")
      * @Groups({"event:read", "event:write"})
      */
     public string $data;
