@@ -10,7 +10,7 @@ use Doctrine\Migrations\AbstractMigration;
 /**
  * Auto-generated Migration: Please modify to your needs!
  */
-final class Version20211213055619 extends AbstractMigration
+final class Version20220101070016 extends AbstractMigration
 {
     public function getDescription() : string
     {
@@ -35,7 +35,7 @@ final class Version20211213055619 extends AbstractMigration
         $this->addSql('COMMENT ON COLUMN event.stream_id IS \'(DC2Type:uuid)\'');
         $this->addSql('COMMENT ON COLUMN event.event_data_id IS \'(DC2Type:uuid)\'');
         $this->addSql('COMMENT ON COLUMN event.datetime IS \'(DC2Type:datetime_immutable)\'');
-        $this->addSql('CREATE TABLE event_data (id UUID NOT NULL, data TEXT NOT NULL, PRIMARY KEY(id))');
+        $this->addSql('CREATE TABLE event_data (id UUID NOT NULL, data BYTEA NOT NULL, PRIMARY KEY(id))');
         $this->addSql('COMMENT ON COLUMN event_data.id IS \'(DC2Type:uuid)\'');
         $this->addSql('CREATE TABLE invite (id UUID NOT NULL, stream_id UUID NOT NULL, expiration TIMESTAMP(0) WITHOUT TIME ZONE NOT NULL, PRIMARY KEY(id))');
         $this->addSql('CREATE INDEX IDX_C7E210D7D0ED463E ON invite (stream_id)');
@@ -108,6 +108,7 @@ final class Version20211213055619 extends AbstractMigration
         // this down() migration is auto-generated, please modify it to your needs
         $this->abortIf($this->connection->getDatabasePlatform()->getName() !== 'postgresql', 'Migration can only be executed safely on \'postgresql\'.');
 
+        $this->addSql('CREATE SCHEMA public');
         $this->addSql('ALTER TABLE stream_user DROP CONSTRAINT FK_3A84EFEA832799BB');
         $this->addSql('ALTER TABLE event DROP CONSTRAINT FK_3BAE0AA7B2A20893');
         $this->addSql('ALTER TABLE stream_user DROP CONSTRAINT FK_3A84EFEAEA417747');
