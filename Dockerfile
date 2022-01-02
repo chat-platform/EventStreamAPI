@@ -42,4 +42,4 @@ ENV APP_ENV=prod
 RUN ./bin/console cache:warmup
 
 #TODO: Set port and workers from ENV vars
-ENTRYPOINT ["/ppm/vendor/bin/ppm", "start", "--host=0.0.0.0", "--port=8080", "--workers=2", "--app-env=prod", "--static-directory=public/"]
+ENTRYPOINT ["/ppm/vendor/bin/ppm", "start", "--host=0.0.0.0", "--port=8080", "--workers=2", "--app-env=prod", "--static-directory=public/", "--request-body-buffer=2M"]
