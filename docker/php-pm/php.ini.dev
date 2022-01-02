@@ -5,3 +5,4 @@ disable_functions =
 
 max_execution_time = 0
 max_input_time = 0
+post_max_size = 0
