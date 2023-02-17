@@ -20,7 +20,7 @@
         "doctrine/doctrine-migrations-bundle": "^2.1",
         "doctrine/orm": "^2.9",
         "doctrine/persistence": "^2.1",
-        "firebase/php-jwt": "^5.3.0",
+        "firebase/php-jwt": "^6.0.0",
         "nelmio/cors-bundle": "^2.1",
         "phpdocumentor/reflection-docblock": "^5.3",
         "ramsey/uuid-doctrine": "^1.8",
